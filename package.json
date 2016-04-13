@@ -1,0 +1,23 @@
+{
+  "name": "patchterm",
+  "version": "1.0.0",
+  "description": "an cli for ssb portocol, like a commandline version of patchwork",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ssb",
+    "cli"
+  ],
+  "author": "myf",
+  "license": "MIT",
+  "dependencies": {
+    "pull-stream": "^3.1.0",
+    "scuttlebot": "^8.0.0",
+    "secure-scuttlebutt": "^15.0.2",
+    "ssb-client": "^3.0.0",
+    "ssb-config": "^2.0.0",
+    "ssb-keys": "^5.0.1"
+  }
+}
