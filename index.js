@@ -1,5 +1,7 @@
 var pull = require('pull-stream');
 var ssbclient = require('ssb-client');
+var chalk = require('chalk');
+var boxen = require('boxen');
 
 var sbot_cont = function(cb) {
     ssbclient(function(err, sbot) {
@@ -16,13 +18,21 @@ var list_messages = function() {
                     msgs.map(function(item) {
                         var cont = item.value.content;
                         if (cont.type === 'post') {
-                            console.log(item.value.author + ':');
-                            console.log(cont.text);
+                            console.log(
+                                    chalk.bold.blue(item.value.author + ':')
+                            );
+                            try{
+                                console.log(boxen(cont.text, {padding: 1}));
+                            } catch(e) {
+                                console.log(e);
+                            }
                         }
                     });
                 })
             );
         });
 };
+
+
 
 list_messages();
