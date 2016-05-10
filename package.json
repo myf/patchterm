@@ -4,7 +4,8 @@
   "description": "an cli for ssb portocol, like a commandline version of patchwork",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start" : "node server.js > /dev/null & node index.js"
   },
   "keywords": [
     "ssb",
