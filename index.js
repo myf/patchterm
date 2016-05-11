@@ -2,6 +2,7 @@ var pull = require('pull-stream');
 var paramap = require('pull-paramap');
 var ssbclient = require('ssb-client');
 var chalk = require('chalk');
+var rl= require('./rl');
 
 var sbot_cont = function(cb) {
   ssbclient(function(err, sbot) {
@@ -13,7 +14,8 @@ var sbot_cont = function(cb) {
 var list_messages = function() {
   sbot_cont(function(sbot) {
     pull(
-      sbot.createLogStream(),
+      sbot.createLogStream({reverse: true,
+                            limit: 10}),
       //////
       paramap(function(item, cb) {
         var cont = item.value.content;
@@ -23,16 +25,17 @@ var list_messages = function() {
             );
             console.log(cont.text);
             console.log();
-            cb(null, 'a');
         }
+        cb(null, item.key);
         /*
             var box = boxen(cont.text, {padding: 1});
          */
       }, 1e13),
       /////
-      pull.collect(function(err, msgs) {
+      pull.collect(function(err, key) {
         if (err) throw err;
-        console.log("total: %s messages", msgs.length);
+        console.log(key);
+        rl.prompt();
       })
     );
   });
