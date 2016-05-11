@@ -1,17 +1,17 @@
-var pull = require('pull-stream');
-var paramap = require('pull-paramap');
-var ssbclient = require('ssb-client');
-var chalk = require('chalk');
-var rl= require('./rl');
+const pull = require('pull-stream');
+const paramap = require('pull-paramap');
+const ssbclient = require('ssb-client');
+const chalk = require('chalk');
+const rl= require('./rl');
 
-var sbot_cont = function(cb) {
+const sbot_cont = function(cb) {
   ssbclient(function(err, sbot) {
     if (err) throw err;
       cb(sbot);
   });
 };
 
-var list_messages = function() {
+const list_messages = ()=> {
   sbot_cont(function(sbot) {
     pull(
       sbot.createLogStream({reverse: true,
@@ -20,11 +20,11 @@ var list_messages = function() {
       paramap(function(item, cb) {
         var cont = item.value.content;
         if (cont.type === 'post') {
-            console.log(
-              chalk.bold.blue(item.value.author + ':')
-            );
-            console.log(cont.text);
-            console.log();
+          console.log(
+            chalk.bold.blue(item.value.author + ':')
+          );
+          console.log(cont.text);
+          console.log();
         }
         cb(null, item.key);
         /*
@@ -34,7 +34,6 @@ var list_messages = function() {
       /////
       pull.collect(function(err, key) {
         if (err) throw err;
-        console.log(key);
         rl.prompt();
       })
     );
