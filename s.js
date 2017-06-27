@@ -16,7 +16,7 @@ const s = {};
 s.list_messages = (ts, direction, cb)=> {
   // direction is next or prev
   // id is the key id of the reference point
-  let query = {limit: 10,
+  let query = {limit: 50,
                reverse: true};
   if (direction == "next") {
     query.gt = ts;
