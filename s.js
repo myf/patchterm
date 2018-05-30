@@ -52,5 +52,19 @@ s.list_messages = (ts, direction, cb)=> {
   });
 };
 
+s.query_content = (keyword, cb) => {
+  let query = {limit: 50,
+               reverse: true};
+  sbot_cont((sbot) => {
+    pull(
+      sbot.createLogStream(),
+      pull.collect(function(err, items) {
+        if (err) throw err;
+        cb(items);
+      })
+    )
+  });
+}
+
 
 module.exports = s;

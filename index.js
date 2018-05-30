@@ -31,6 +31,11 @@ rl.on('line', (cmd) => {
                                 rl.prompt();
                               });
     }
+    if (cmd === ":s") {
+        return s.query_content("", (items) => {
+                                rl.prompt();
+                              });
+    }
     if (/\:r([0-9]+)/.exec(cmd)) {
       var num = /\:r([0-9]+)/.exec(cmd)[1];
       console.log(num);
